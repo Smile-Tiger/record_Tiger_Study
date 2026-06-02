@@ -87,7 +87,7 @@ class MyPromise {
       try {
         const result = executor(this._value);
         if (isPromise(result)) {
-          result.then(resolve, reject); // 如果是Promise，把Promise跑一遍得到结果
+          result.then(resolve, reject); // 如果是Promise，把Promise跑一遍得到结果，可能里面有resolve进行传递
         } else {
           resolve(result);
         }

@@ -9,12 +9,12 @@ function debounce(callback, wait){
   }
 }
 
-function throttle(fn, delay){
+function throttle(callback, delay){
   let currentTime = Date.now()
   return function(...args){
     let nowTime = Date.now()
-    if(nowTime - currentTime > delay){
-      fn(...args)
+    if(nowTime - currentTime > delay) {
+      callback(...args)
       currentTime = Date.now()
     }
   }

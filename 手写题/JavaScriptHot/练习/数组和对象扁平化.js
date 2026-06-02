@@ -25,15 +25,18 @@ const obj = {
 };
 
 function flattenObject(obj, prefix = '', res = {}){
-  for(let key in obj) {
+  for(let key in obj){
     let newKey = prefix ? `${prefix}.${key}` : key
-    if (typeof obj[key] === 'object' && obj[key] !== null && !(obj instanceof Date)){
-      flattenObject(obj[key], newKey, res)
+    
+    if (typeof obj[key] === 'object' && obj[key] !== null && 
+      !(/^(Function|RegExp|Date|Map)$/i.test(obj[key].constructor.name)))
+      {
+        flattenObject(obj[key], newKey, res)
     } else {
-      res[newKey] = obj[key]
+      res[newKey] = obj[key] 
     }
   }
   return res
 }
 
-// console.log(flattenObject(obj))
+console.log(flattenObject(obj))

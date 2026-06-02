@@ -1,5 +1,5 @@
 Object.myCreate = function (proto) {
-    if (typeof proto !== "object" && typeof proto !== "function") {
+    if (typeof proto !== 'object' && typeof proto !== 'function') {
         // 类型校验
         throw new TypeError("proto必须为对象或者函数");
     } else if (proto === null) {
@@ -15,3 +15,8 @@ Object.myCreate = function (proto) {
     // 返回构造的实例， 这个时候返回的实例和传入的 proto中间多了一层 F
     return new F();
 };
+
+const parent = { name: "豆包" };
+const child = Object.myCreate(parent);
+console.log(child.name); // 豆包
+console.log(child.__proto__ === parent); // true

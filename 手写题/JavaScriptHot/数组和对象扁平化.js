@@ -16,6 +16,14 @@ function flatten(arr) {
 flatten(arr);
 
 // 对象扁平化（常用于路由扁平化）
+const obj = {
+  a: 1,
+  b: {
+    c: 2,
+    d: 3
+  }
+};
+
 function flattenObject(obj, prefix = '', res = {}) {
   for (let key in obj) {
     // 拼接新 key：有前缀就加 "."，没有就直接用
@@ -24,7 +32,8 @@ function flattenObject(obj, prefix = '', res = {}) {
     // prefix='', key='home' → newKey='home'
     
     // obj还不能为特殊对象
-    if (typeof obj[key] === 'object' && obj[key] !== null && !(obj[key] instanceof Date)) { 
+    if (typeof obj[key] === 'object' && obj[key] !== null && 
+      !(/^(Function|RegExp|Date|Map)$/i.test(obj[key].constructor.name))) { 
       flattenObject(obj[key], newKey, res);
     } else {
       res[newKey] = obj[key];

@@ -11,24 +11,26 @@ const arr2 = arr.myFilter((item) => item.name === '张三')
 const arr3 = arr.reduce((array, item) => array.push(item.id), [])
 
 Array.prototype.myMap = function(callback){
-  const res = []
+  const result = []
   for(let i = 0; i < this.length; i++){
-    res.push(callback(this[i], i, this))
+    result.push(callback(this[i], i, this))
   }
-  return res
+  return result
 }
 
 Array.prototype.myFilter = function(callback){
-  const res = []
+  const result = []
   for(let i = 0; i < this.length; i++){
-    if(callback(this[i], i, this)) res.push(this[i])
+    if(callback(this[i], i, this)){
+      result.push(this[i])
+    }
   }
-  return res
+  return result
 }
 
 Array.prototype.myReduce = function(callback, ...args){
   let start = 0, pre
-  if(args[0]) {
+  if(args[0]){
     pre = args[0]
   } else {
     start = 1

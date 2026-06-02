@@ -1,6 +1,7 @@
 Promise.myRace = function (arr) {
   return new Promise((resolve, reject) => {
     for (let item of arr) {
+      // Promise的状态只改变一次，上面只new了一次Promise
       Promise.resolve(item).then(res => {
         resolve(res)
       }).catch(err => {

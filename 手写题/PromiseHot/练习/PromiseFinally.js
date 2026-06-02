@@ -6,7 +6,7 @@ Promise.prototype.finally = function(onSettled){
     },
     (reason) => {
       onSettled()
-      throw reason  
+      throw reason
     }
   )
 }

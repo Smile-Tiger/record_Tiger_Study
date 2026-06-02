@@ -1,6 +1,8 @@
 // - call / apply ：单次调用，临时改变 this，执行完就恢复
 // - bind ：返回新函数，永久绑定 this，可以多次调用
 // - call传多个参数，apply传数组
+// this的指向一般填对象或者是null/undefined
+
 Function.prototype.call2 = function(context, ...args) {
   context = (context === undefined || context === null) ? window : context
   context.__fn = this

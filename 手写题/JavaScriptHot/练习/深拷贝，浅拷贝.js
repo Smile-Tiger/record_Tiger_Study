@@ -1,14 +1,24 @@
-const deepClone = (target, map = new WeakMap()) => {
-  if(target !== 'object' || target !== null) return target
+function deepClone(target, map = new WeakMap()){
+  if (typeof target !== 'object' || target !== null) return target
+  if (map.has(target)) return map.get(target)
   const constructor = target.constructor
-  if(/^(Date|Map|Set|Function|RegExp)$/i.test(constructor)) return new constructor(target)
-  if(map.get(target)) return map.get(target)
-  map.set(target, '循环引用对象')
+  if (/^(Function|RegExp|Date|Map|Set)$/i.test(constructor)) return new constructor(target)
   const cloneTarget = Array.isArray(target) ? [] : {}
-  for(item in target){
-    if(target.hasOwnProperty(item)) {
-      return cloneTarget[item] = deepClone(item, map)
+  map.set(target, cloneTarget)
+  for (let item in target){
+    if (target.hasOwnProperty(item)){
+      cloneTarget[item] = deepClone(target, map)
     }
   }
   return cloneTarget
 }
+
+const obj = {
+  name: '张三',
+  friend: null,  // 先设为 null
+}
+obj.friend = obj  // 循环引用
+obj.age = 25      // 还有另一个属性
+
+const newObj = deepClone(obj)
+console.log(newObj)

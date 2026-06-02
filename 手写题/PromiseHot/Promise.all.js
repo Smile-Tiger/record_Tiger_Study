@@ -9,7 +9,7 @@ function PromiseAll(iterable) {
   return new Promise((resolve, reject) => {
     const results = [];    // 存储每个 Promise 成功后的结果，按原数组顺序存放
     let remaining = 0;     // 记录还未完成的 Promise 数量（计数器）
-    let index = 0;         // 当前处理的 Promise 在数+组中的索引位置
+    let index = 0;         // 当前处理的 Promise 在数组中的索引位置
 
     try {
       for (const item of iterable) {
