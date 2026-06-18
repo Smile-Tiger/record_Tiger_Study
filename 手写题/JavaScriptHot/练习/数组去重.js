@@ -9,12 +9,11 @@ const array = [
 ];
 
 // 普通数组去重
-let newArr1 = [...new Set(arr)]
-// Array.from(new Set(arr))
-let newArr2 = arr.filter((item, index, array) => array.indexOf(item) === index)
-let newArr3 = arr.reduce((array, item) => {
-  return array.includes(item) ? array : [...array, item]
+const arr1 = [...new Set(arr)]
+const arr2 = arr.filter((item, index, array) => array.indexOf(item) === index)
+const arr3 = arr.reduce((unique, item) => {
+  return unique.includes(item) ? unique : [...unique, item]
 }, [])
 
 // 对象数组去重
-let newArray = Array.from(new Map(arr.map((item) => [item.id, item])).values())
+const arr4 = [...new Map(array.map(item => [item.id, item])).values()]

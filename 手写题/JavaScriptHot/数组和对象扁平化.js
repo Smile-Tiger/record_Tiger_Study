@@ -33,7 +33,8 @@ function flattenObject(obj, prefix = '', res = {}) {
     
     // obj还不能为特殊对象
     if (typeof obj[key] === 'object' && obj[key] !== null && 
-      !(/^(Function|RegExp|Date|Map)$/i.test(obj[key].constructor.name))) { 
+      !(/^(Function|RegExp|Date|Map|Set)$/i.test(obj[key].constructor.name))) 
+      { 
       flattenObject(obj[key], newKey, res);
     } else {
       res[newKey] = obj[key];

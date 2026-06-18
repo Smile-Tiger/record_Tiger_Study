@@ -1,23 +1,20 @@
-function debounce(callback, time) {
-    let timer = null;
-    return (...args) => {
-      if (timer) {
-        clearTimeout(timer)
-        timer = null
-      }
-      timer = setTimeout(() => {
-        callback(...args)
-      }, time);
+function debounce(callback, wait){
+  let timer = null
+  return function(...args){
+    if(timer) {
+      clearTimeout(timer)
     }
+    timer = setTimeout(() => callback(...args), wait)
   }
+}
 
-function throttle(fn, delay) {
-    let currentTime = Date.now()
-    return (...args) => {
-      nowTime = Date.now()
-      if (nowTime - currentTime > delay) {
-        fn(...args)
-        currentTime = Date.now()
-      }
+function throttle(callback, delay){
+  let currentTime = Date.now()
+  return function(...args){
+    let nowTime = Date.now()
+    if(nowTime - currentTime > delay) {
+      callback(...args)
+      currentTime = Date.now()
     }
   }
+}

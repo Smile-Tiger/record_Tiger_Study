@@ -3,7 +3,6 @@ function debounce(callback, wait){
   return function(...args){
     if(timer) {
       clearTimeout(timer)
-      timer = null
     }
     timer = setTimeout(() => callback(...args), wait)
   }

@@ -14,7 +14,7 @@ const _completeDeepClone = (target, map = new WeakMap()) => {
   // map标记每一个出现过的属性，避免循环引用重复拷贝，保证循环引用的属性只拷贝一次
   const cloneTarget = Array.isArray(target) ? [] : {}
   map.set(target, cloneTarget) 
-  for (prop in target) {
+  for (let prop in target) {
     // hasOwnProperty是判断是否为自身的属性，而非继承或原型链的属性
     if (target.hasOwnProperty(prop)) {
       cloneTarget[prop] = _completeDeepClone(target[prop], map)

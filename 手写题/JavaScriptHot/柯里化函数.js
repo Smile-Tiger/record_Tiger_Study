@@ -20,15 +20,16 @@ function myCurrying(fn) {
 // 或
 // add(1, 2)(3)
 
-// // 1. myCurrying 函数 - 接收1个参数（要柯里化的函数）
-// function myCurrying(fn) {    // ← myCurrying.length = 1
-//   // ...
+// this的指向是为了确保如果调用柯里化的是对象的话，可能造成数据丢失
+// function greet(greeting, name) {
+//   return `${greeting}, ${name}！我是${this.role}`;
 // }
-// // 2. 你传入的 fn - 可以有任意个参数
-// function sum(a, b, c) {      // ← sum.length = 3
-//   return a + b + c;
-// }
-// // 使用
-// const curriedSum = myCurrying(sum);  // 把 sum 传给 myCurrying
-// //                   ↑ fn = sum
-// //                   ↑ fn.length = 3（不是1！）
+
+// const obj = {
+//   role: '管理员',
+//   sayHello: myCurrying(greet)
+// };
+
+// // 链式调用
+// obj.sayHello('你好')('豆包');
+// 可能这个this.role会丢失成为undefined

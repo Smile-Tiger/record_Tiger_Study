@@ -10,34 +10,20 @@ const arr = arr.myMap((item) => item.id)
 const arr2 = arr.myFilter((item) => item.name === '张三')
 const arr3 = arr.reduce((array, item) => array.push(item.id), [])
 
-Array.prototype.myMap = function(callback){
-  const result = []
-  for(let i = 0; i < this.length; i++){
-    result.push(callback(this[i], i, this))
+Array.prototype.map = function (callback) {
+  const res = []
+  for (let i = 0; i < this.length; i++){
+    res.push(callback(this[i], i, this))
   }
-  return result
+  return res
 }
 
-Array.prototype.myFilter = function(callback){
-  const result = []
-  for(let i = 0; i < this.length; i++){
-    if(callback(this[i], i, this)){
-      result.push(this[i])
-    }
+Array.prototype.myFilter = function (callback) {
+  const res = []
+  for (let i = 0; i < this.length; i++){
+    if (callback(this[i], i, this)) res.push(this[i])
   }
-  return result
+  return res
 }
 
-Array.prototype.myReduce = function(callback, ...args){
-  let start = 0, pre
-  if(args[0]){
-    pre = args[0]
-  } else {
-    start = 1
-    pre = this[0]
-  }
-  for(let i = start; i < this.length; i++){
-    pre = callback(pre, this[i], i, this)
-  }
-  return pre
-}
+Array.prototype.reduce = function (callback, )

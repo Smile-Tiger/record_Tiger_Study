@@ -2,10 +2,10 @@
 let arr = [1, [2, [3, 4, 5]]];
 
 function flatten(arr){
-  const result = []
+  let result = []
   for(let i = 0; i < arr.length; i++){
     if (arr[i] instanceof Array){
-      result.push(...flatten(arr[i]))
+      result = result.concat(flatten(arr[i]))
     } else {
       result.push(arr[i])
     }
@@ -25,15 +25,14 @@ const obj = {
 };
 
 function flattenObject(obj, prefix = '', res = {}){
-  for(let key in obj){
+  for (let key in obj){
     let newKey = prefix ? `${prefix}.${key}` : key
-    
-    if (typeof obj[key] === 'object' && obj[key] !== null && 
-      !(/^(Function|RegExp|Date|Map)$/i.test(obj[key].constructor.name)))
-      {
-        flattenObject(obj[key], newKey, res)
+    if (obj[key] === 'object' && obj[key] !== null &&
+      (/^(Function|RegExp|Date|Set|Map)$/i.test(obj[key].constructor.name))
+    ) {
+      flattenObject(obj[key], newKey, res)
     } else {
-      res[newKey] = obj[key] 
+      res[newKey] = obj[key]
     }
   }
   return res
