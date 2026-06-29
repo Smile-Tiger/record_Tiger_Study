@@ -4,14 +4,14 @@ function foo() {
   console.log(a);
   var a = 2;
 }
-foo(); // 提升声明不提升赋值，先从当前作用域找，所以是1
+foo(); // 提升声明不提升赋值，先从当前作用域找，所以是undefined，聚焦函数里面的变量
 
 // 2.
 {
   function bar() { return 1; }
 }
-console.log(bar());  // 在非严格模式下输出 1,非严格模式下输出 undefined
-// 历史遗留问题，非严格模式下块级作用域中的函数会挂载全局，变量是正常，
+console.log(bar());  // 在非严格模式下输出 1,严格模式下输出 undefined
+// 历史遗留问题，非严格模式下块级作用域中的函数会挂载全局，变量则正常，
 
 // 3.
 function createCounters() {
@@ -24,9 +24,9 @@ function createCounters() {
 const counters = createCounters();
 counters[0](); counters[1](); counters[2]();
 // 3,3,3
-// 因为调用数组里面的函数时，循环早已跑完，所以取的结果只会是3，只有循环数据现给现用的情况才是1,2,3
+// 共用同一个i，循环遍历存储函数体，由于闭包问题，会将函数内的i存储下来，所以访问的时候都是3
 
-// 4.
+// 4. 留意没声明变量到底是修改哪里的数据
 var a = 10;
 (function() {
   console.log(a);

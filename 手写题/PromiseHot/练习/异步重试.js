@@ -1,20 +1,20 @@
-function retry(fn, options = {}){
+function retry (fn, options = {}){
   const {retries = 3, delay = 1000, onRetry} = options
   return new Promise((resolve, reject) => {
     let attemptCount = 0
     const attempt = async () => {
-      try {
+      try{
         attemptCount++
         const result = await fn()
         resolve(result)
       } catch (error) {
-        if (attemptCount >= retries){
-          reject(new Error(`Failed after ${retries} attempts: ${error}`))
-          return
+        if (attemptCount >= retries) {
+          reject(new Error('Failed'))
         }
         if (onRetry) {
           onRetry(attemptCount, error)
         }
+
         setTimeout(() => {
           attempt()
         }, delay)

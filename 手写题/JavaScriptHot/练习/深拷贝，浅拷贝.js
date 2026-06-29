@@ -1,13 +1,15 @@
-function deepClone(target, map = new WeakMap()){
-  if (target !== 'object' || target === null) return target
-  if (map.has(target)) return map.get(target)
+const deepClone = (target, map = new WeakMap()) => {
+  if (typeof target !== 'object' || target === null) return target
+  if (map.has(target)){
+    return map.get(target)
+  }
   const constructor = target.constructor
-  if (/^(Map|Set|RegExp|Function|Date)$/i.test(constructor.name)) return new constructor(target)
+  if (/^(Function|RegExp|Date|Map|Set)$/i.test(constructor.name)) return new constructor(target)
   const cloneTarget = Array.isArray(target) ? [] : {}
   map.set(target, cloneTarget)
-  for (let prop in target){
-    if (target.hasOwnProperty(prop)){
-      cloneTarget[prop] = deepClone(target[prop], map)
+  for (let key in target){
+    if (target.hasOwnProperty(key)){
+      cloneTarget[key] = deepClone(target[key], map)
     }
   }
   return cloneTarget

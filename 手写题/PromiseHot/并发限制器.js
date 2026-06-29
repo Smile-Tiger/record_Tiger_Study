@@ -7,7 +7,7 @@
 async function concurrentControl(tasks, limit) {
   const results = new Array(tasks.length);   // 存放结果，保持顺序
   let running = 0;                           // 正在执行的任务数
-  let currentIdx = 0;                       // 下一个要执行的任务索引
+  let currentIdx = 0;                       // 下一个要执行的任务索引（已分配任务数）
   let resolveAll, rejectAll;                // 用于控制最终的 Promise
 
   const finalPromise = new Promise((resolve, reject) => {
@@ -31,7 +31,7 @@ async function concurrentControl(tasks, limit) {
           // 如果所有任务都已执行完（包括队列中的和正在运行的）
           console.log(currentIdx)
           if (running === 0 && currentIdx === tasks.length) {
-            resolveAll(results);
+            resolveAll(results); // 返回的数组是按存入顺序返回
           }
         })
         .catch(err => {

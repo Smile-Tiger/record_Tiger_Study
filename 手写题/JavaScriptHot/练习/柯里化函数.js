@@ -1,10 +1,9 @@
 function myCurrying(fn){
   return function curried(...args){
-    if (args.length > fn.length){
+    if (args.length >= fn.length){
       return fn.apply(this, args)
-    }
-    else {
-      return function (...args2) {
+    } else {
+      return function(...args2){
         return fn.apply(this, args.concat(args2))
       }
     }

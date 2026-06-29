@@ -1,5 +1,5 @@
 function PromiseAll(iterable) {
-  // 1. 校验：判断传过来的值是否为可迭代对象，可迭代对象都有这个[Symbol.iterator]
+  // 1. 校验：判断传过来的值是否为可迭代对象像数组，可迭代对象都有这个[Symbol.iterator]
   // typeof [][Symbol.iterator] 结果是function 
   if (typeof iterable[Symbol.iterator] !== 'function') {
     return Promise.reject(new TypeError('Promise.all requires an iterable'));

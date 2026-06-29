@@ -1,30 +1,33 @@
-async function concurrentControl(tasks, limit) {
+function concurrentControl(tasks, limit){
   const results = new Array(tasks.length)
   let running = 0
   let currentIdx = 0
   let resolveAll, rejectAll
+  
   const finalPromise = new Promise((resolve, reject) => {
     resolveAll = resolve
     rejectAll = reject
   })
-  function run() {
-    while (running < limit && currentIdx < tasks.length) {
-      const idx = currentIdx++
-      const task = tasks[idx]
+
+  function run(){
+    while(running < limit && currentIdx < tasks.length){
+      let idx = currentIdx++
+      let task = tasks[idx]
       running++
-      task()
-        .then(result => {
-          result[idx] = result
-          running--
-          if (running === 0 && currentIdx === tasks.length) {
-            resolveAll(results)
-          }
-        })
-        .catch(err => {
-          rejectAll(err)
-        })
+      task().then(result => {
+        results[idx] = result
+        running--
+        run()
+        if (running === 0 && currentIdx >= tasks.length){
+          resolveAll(results)
+        }
+      })
+      .catch(err => {
+        rejectAll(err)
+      })
     }
   }
+
   run()
   return finalPromise
 }

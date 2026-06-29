@@ -1,5 +1,5 @@
 // 实现一个函数 getProperty，安全地获取对象中的某个属性值。
-// k extends keyof T表示K必须是T这个类型所有属性名中的某一个
+// k extends keyof T表示K必须是T这个类型所有属性名中的子集
 // 比如T extends K，泛型中的extends不是表示继承，而是表示T中至少包含K中的所有属性
 function getProperty<T, K extends keyof T> (obj: T, key: K): T[K]{
   return obj[key]

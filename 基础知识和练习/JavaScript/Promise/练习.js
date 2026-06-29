@@ -34,8 +34,8 @@ async function test1(){
 
 // 实现一个sleep函数
 async function sleep(ms){
-  await new Promise((resolve) => {
-    setTimeout(() => resolve(), ms)
+  await new Promise(resolve => {
+    setTimeout(() => resolve().ms)
   })
   // 或者
   // return new Promise((resolve) => {
@@ -63,3 +63,5 @@ new Promise((resolve) => {
   resolve();
 }).then(() => console.log('promise2'));
 console.log('script end');
+
+// script start -> async1 start -> async2 -> promise1 -> script end -> async1 end -> promise2-> setTimeout

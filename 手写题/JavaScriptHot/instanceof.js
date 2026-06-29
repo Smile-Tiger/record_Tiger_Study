@@ -10,6 +10,7 @@ function myInstanceof(left, right) {
     proto = Object.getPrototypeOf(proto); // 基于原型链查找
   }
 }
+
 function Person() { };
 var p = new Person();
 console.log(myInstanceof(p, Object));

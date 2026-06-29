@@ -3,7 +3,7 @@ const _completeDeepClone = (target, map = new WeakMap()) => {
   // - null 的 typeof 也是 'object'，所以要单独判断
   if (typeof target !== 'object' || target === null) return target
   if (map.has(target)) {
-    return map.get(target)  // 返回已拷贝的对象
+    return map.get(target)  // 返回已拷贝的对象，这里是为了防止
   }
   const constructor = target.constructor // 拿到target的构造函数，通过原型链向上查找
   // 特殊处理特殊的对象

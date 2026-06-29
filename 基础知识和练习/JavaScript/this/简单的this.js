@@ -20,7 +20,11 @@ const obj1 = {
   }
 };
 obj1.say();   // undefined / window / Global
-// 聚焦有console.log的方法，这个方法没有调用者obj1调用say，但是定时器里面的那个方法没有被调用，所以指向全局
+// obj1确实是调用say方法，并且say的this是指向了obj1,但是定时器里的函数是直接调用的
+// 理解
+// function(callback, delay){
+//  callback()
+// }，这就是定时器内部调用方法的方式，此时this就指向了全局
 
 // 第三题
 function foo() {
@@ -38,6 +42,6 @@ function Test(name) {
 }
 const obj4 = { name: 'Fixed' };
 const BoundTest = Test.bind(obj4);
-const instance = new BoundTest('Tom');
+const instance = new BoundTest('Tom');// new的优先级比bind高，this的指向被新对象覆盖
 console.log(instance.name);   // Tom
 console.log(obj4.name);        // Fixed

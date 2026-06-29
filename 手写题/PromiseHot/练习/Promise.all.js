@@ -14,31 +14,27 @@ Promise.all([
   }
 )
 
-function PromiseAll(iterable) {
+function PromiseAll(iterable){
   if (typeof iterable[Symbol.iterator] !== 'function') {
     return Promise.reject(new TypeError('Promise.all requires an iterable'))
   }
-
   return new Promise((resolve, reject) => {
-    let remaining = 0
-    let index = 0
     const results = []
-
+    let index = 0
+    let remaining = 0
     try {
-      for(const item of iterable){
-        remaining++
+      for(let item of iterable){
         let currentIndex = index++
+        remaining++
         Promise.resolve(item)
-          .then((value) => {
-            results[currentIndex] = value
-            if(--remaining === 0){
-              resolve(results)
-            }
-          })
-          .catch(reject)
+        .then(result => {
+          results[currentIndex] = result
+          if(--remaining === 0){
+            resolve(results)
+          }
+        }).catch(reject)
       }
-    } catch(e) {
-      console.error(e)
+    } catch (e) {
       reject(e)
     }
 

@@ -1,8 +1,8 @@
 // 串行
 async function runSerial(tasks){
   const results = []
-  for(let item of tasks){
-    const result = await item()
+  for(task of tasks){
+    const result = await task()
     results.push(result)
   }
   return results
