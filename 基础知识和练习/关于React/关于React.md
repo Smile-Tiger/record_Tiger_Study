@@ -1,5 +1,7 @@
 # 概念总结
 
+因为我的主框架不是React，只是做为我的辅助框架使用，所以我仅做了简单的介绍
+
 ## UI=f（state）
 
 - 观察以下代码：`state`（状态）变了 → React 重新执行 `App()` 这个函数 → 拿到新的 `count` 值 → 刷新界面（Diff 算法算出只有数字变了，只更新那一个地方）
@@ -379,7 +381,7 @@ export default App;
 
 ## useMemo
 
-`useMemo`** 是用来“缓存计算结果”的，和 **`useCallback`** 是“缓存函数”的，它们俩是同一种优化思想的不同表现形式。把计算结果缓存起来，依赖没变就不重新算。**
+`useMemo`\*\* 是用来“缓存计算结果”的，和 **`useCallback`** 是“缓存函数”的，它们俩是同一种优化思想的不同表现形式。把计算结果缓存起来，依赖没变就不重新算。\*\*
 
 ```JavaScript
 function ProductList({ products, filterText }) {
